@@ -410,7 +410,8 @@ export default function createPostGraphQLHttpRequestHandler (options) {
         jwtAudiences,
         jwtRole,
         pgDefaultRole,
-        eventListener: await eventListenerFactory(req,res),
+        eventListener:
+          typeof eventListenerFactory === 'function' ?  await eventListenerFactory(req, res) : null,
         pgSettings:
           typeof pgSettings === 'function' ? await pgSettings(req) : pgSettings,
       }, context => {
